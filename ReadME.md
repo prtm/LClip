@@ -1,11 +1,12 @@
 # PySearch
 
-PySearch script helps you search clipboard data on your favourite browser.
+PySearch script helps you search clipboard data on your linux favourite browser.
 
 ## Features
 
 * Open Source
 * Makes search easier.
+* Browser Google or Firefox
 * Search on google.com or duckduckgo.com
 
 ## Installation and Usage
