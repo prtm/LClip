@@ -5,13 +5,16 @@ import validators
 
 # select search engine
 duckduckgo = True  # else google.com
+firefox = True  # else chrome
 
 output = pyperclip.paste()
 is_valid_url = validators.url(output)
 
+browser = 'firefox ' if firefox else 'google-chrome '
+
 if(is_valid_url):
-    os.system('google-chrome '+output)
+    os.system(browser + output)
 elif duckduckgo:
-    os.system('google-chrome "www.duckduckgo.com/?q='+output+'"')
+    os.system(browser + '"www.duckduckgo.com/?q='+output+'"')
 else:
-    os.system('google-chrome "www.google.com/search?q='+output+'"')
+    os.system(browser + '"www.google.com/search?q='+output+'"')
