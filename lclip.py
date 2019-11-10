@@ -113,7 +113,7 @@ if __name__ == "__main__":
                 print('Invalid Input!')
 
         # Create directory and file to store script
-        directory = os.path.join(os.path.expanduser('~'), '.pysearch')
+        directory = os.path.join(os.path.expanduser('~'), '.lclip')
         if not os.path.exists(directory):
             os.makedirs(directory)
 
