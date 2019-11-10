@@ -4,7 +4,7 @@ with open("ReadME.md", "r") as fh:
 setuptools.setup(
     name='lclip',
     version='0.1',
-    scripts=['lclip.py'],
+    scripts=['lclip'],
     author="Preetam",
     author_email="contact@preetam.dev",
     description="LClip script helps you search clipboard data on your linux favourite browser.",
