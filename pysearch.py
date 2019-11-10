@@ -1,20 +1,130 @@
 # stdlib
-import pyperclip
+import argparse
+import sys
+import subprocess
+import os
+
+
+def create_code(browser, se_url):
+    return """import pyperclip
 import os
 import validators
 
-# select search engine
-duckduckgo = True  # else google.com
-firefox = True  # else chrome
-
 output = pyperclip.paste()
 is_valid_url = validators.url(output)
-
-browser = 'firefox ' if firefox else 'google-chrome '
+browser = \""""+browser+"""\"
+se_url = \""""+se_url+"""\"
 
 if(is_valid_url):
-    os.system(browser + output)
-elif duckduckgo:
-    os.system(browser + '"www.duckduckgo.com/?q='+output+'"')
+    os.system('{} {}'.format(browser, output))
 else:
-    os.system(browser + '"www.google.com/search?q='+output+'"')
+    output = output.replace('\\\\', '\\\\\\\\').replace(r'"', r'\\"')
+    os.system('{} \"{} {}\"'.format(browser, se_url, output))
+"""
+
+
+# !/usr/bin/env python3
+
+# @Jacob Vlijm https://askubuntu.com/questions/597395/how-to-set-custom-keyboard-shortcuts-from-terminal#answer-597414
+
+def set_up_keyboard_shortcut(ref_name, command, shortcut):
+    # defining keys & strings to be used
+    key = "org.gnome.settings-daemon.plugins.media-keys custom-keybindings"
+    subkey1 = key.replace(" ", ".")[:-1]+":"
+    item_s = "/"+key.replace(" ", "/").replace(".", "/")+"/"
+    firstname = "custom"
+    # get the current list of custom shortcuts
+    def get(cmd): return subprocess.check_output(
+        ["/bin/bash", "-c", cmd]).decode("utf-8")
+    array_str = get("gsettings get "+key)
+    # in case the array was empty, remove the annotation hints
+    command_result = array_str.lstrip("@as")
+    current = eval(command_result)
+    # make sure the additional keybinding mention is no duplicate
+    n = 1
+    while True:
+        new = item_s+firstname+str(n)+"/"
+        if new in current:
+            n = n+1
+        else:
+            break
+    # add the new keybinding to the list
+    current.append(new)
+    # create the shortcut, set the name, command and shortcut key
+    cmd0 = 'gsettings set '+key+' "'+str(current)+'"'
+    cmd1 = 'gsettings set '+subkey1+new+" name '"+ref_name+"'"
+    cmd2 = 'gsettings set '+subkey1+new+" command '"+command+"'"
+    cmd3 = 'gsettings set '+subkey1+new+" binding '"+shortcut+"'"
+
+    for cmd in [cmd0, cmd1, cmd2, cmd3]:
+        subprocess.call(["/bin/bash", "-c", cmd])
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description='Clipboard copy and search in browser', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument(
+        '-s', '--setup', help='setup keyboard shortcut default "ctrl + shift + x"', action="store_true")
+    args = parser.parse_args()
+    if args.setup:
+
+        # Select browser
+        # -----------------------------------
+        while True:
+            browser_code = input("""
+        Please select browser:
+        1. Firefox
+        2. Chrome
+        3. Chromium
+
+        Enter Number: """)
+
+            browser_commands = {
+                "1": "firefox",
+                "2": "google-chrome",
+                "3": "chromium-browser",
+            }
+            browser = browser_commands.get(browser_code)
+
+            if browser:
+                break
+            else:
+                print('Invalid Input!')
+
+        # Select search engine
+        # -----------------------------------
+        while True:
+            se_code = input("""
+        Please select search engine:
+        1. DuckDuckGo
+        2. Google
+
+        Enter Number: """)
+
+            se_default_urls = {
+                "1": "www.duckduckgo.com/?q=",
+                "2": "www.google.com/search?q=",
+            }
+            se_url = se_default_urls.get(se_code)
+
+            if se_url:
+                break
+            else:
+                print('Invalid Input!')
+
+        # Create directory and file to store script
+        directory = os.path.join(os.path.expanduser('~'), '.pysearch')
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
+        # create script
+        code_file = os.path.join(directory, 'xbrowser.py')
+        with open(code_file, 'w') as f:
+            f.write(create_code(browser, se_url))
+
+        # set keyboard shortcut
+        set_up_keyboard_shortcut(
+            'copyScript', 'python3 {}'.format(code_file), '<Ctrl><Shift>x')
+        print('set up complete')
+    else:
+        parser.print_help()
