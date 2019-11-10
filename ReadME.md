@@ -1,30 +1,26 @@
-# PySearch
+# LClip
 
-PySearch script helps you search clipboard data on your linux favourite browser.
+LClip script helps you search clipboard data on your linux favourite browser.
 
 ## Features
 
 * Open Source
 * Makes search easier.
-* Browser Google or Firefox
+* Browser Google or Firefox or Chromium
 * Search on google.com or duckduckgo.com
 
 ## Installation and Usage
 
-1. [Python2](https://www.python.org/downloads/) or [Python3](https://www.python.org/downloads/) required
-2. [Validators](http://validators.readthedocs.io/en/latest/) required
+1. [Python3](https://www.python.org/downloads/) required
+2. Install lclip
 ```
-    pip install validators
+pip3 install lclip
 ```
-3. [Pyperclip](https://pyperclip.readthedocs.io/en/latest/introduction.html) required
+3. lclip setup
 ```
-    pip install pyperclip
+lclip -s
 ```
-4. Copy data that you want to search.
-
-5. Download script and use keyboard shortcut to run the script.
-   
-6. Not Implemented Error:
+4. Not Implemented Error:
    
     "Pyperclip could not find a copy/paste mechanism for your system"
 ```
