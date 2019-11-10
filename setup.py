@@ -3,7 +3,7 @@ with open("ReadME.md", "r") as fh:
     long_description = fh.read()
 setuptools.setup(
     name='lclip',
-    version='0.1',
+    version='0.1.1',
     scripts=['lclip'],
     author="Preetam",
     author_email="contact@preetam.dev",

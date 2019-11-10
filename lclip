@@ -1,4 +1,4 @@
-# stdlib
+#!/usr/bin/env python3
 import argparse
 import sys
 import subprocess
@@ -21,9 +21,6 @@ else:
     output = output.replace('\\\\', '\\\\\\\\').replace(r'"', r'\\"')
     os.system('{} \"{} {}\"'.format(browser, se_url, output))
 """
-
-
-# !/usr/bin/env python3
 
 # @Jacob Vlijm https://askubuntu.com/questions/597395/how-to-set-custom-keyboard-shortcuts-from-terminal#answer-597414
 
@@ -113,8 +110,7 @@ if __name__ == "__main__":
                 print('Invalid Input!')
 
         # Create directory and file to store script
-        directory = os.path.join(os.path.expanduser('~'), '.lclip
-        ')
+        directory = os.path.join(os.path.expanduser('~'), '.lclip')
         if not os.path.exists(directory):
             os.makedirs(directory)
 
