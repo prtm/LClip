@@ -1,6 +1,6 @@
 # LClip
 
-LClip script helps you search clipboard data on your linux favourite browser.
+LClip script helps you search clipboard data on your Ubuntu GNOME favourite browser.
 
 ## Features
 
