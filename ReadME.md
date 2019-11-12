@@ -47,5 +47,20 @@ Ctrl + Shift + x
 ![Output](screenshots/output.png "Output")
 
 
+## Other Distro
+1. Remove set_up_keyboard_shortcut from [lclip file](https://github.com/prtm/LClip/blob/master/lclip)
+2. Install python packages
+```shell
+pip3 install validators pyperclip
+```
+3. Run script
+```shell
+python3 lclip
+```
+4. Create keyboard shortcut manually with command
+```shell
+python3 ~/.lclip/xbrowser.py
+```
+
 ## Suggestions
 Open to any suggestions and help provided.
