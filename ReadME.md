@@ -43,8 +43,8 @@ Ctrl + Shift + x
 ```
 
 ## Screenshot
-![Copy code](screenshots/copy.png "Copy Code")
-![Output](screenshots/output.png "Output")
+![Copy code](https://raw.githubusercontent.com/prtm/LClip/master/screenshots/copy.png)
+![Output](https://raw.githubusercontent.com/prtm/LClip/master/screenshots/output.png)
 
 
 ## Other Distro
